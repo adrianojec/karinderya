@@ -1,0 +1,47 @@
+{
+  "foods": [
+    { "id": "1", "foodName": "Adobo", "price": 45, "availableQty": 100 },
+    { "id": "2", "foodName": "Rice", "price": 10, "availableQty": 9999 }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "foodItems": [
+        {
+          "food": {
+            "id": "1",
+            "foodName": "Adobo",
+            "price": 45,
+            "availableQty": 98
+          },
+          "purchasedQty": 2
+        },
+        {
+          "food": {
+            "id": "2",
+            "foodName": "Rice",
+            "price": 10,
+            "availableQty": 9995
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "total": 0
+    },
+    {
+      "id": "2",
+      "foodItems": [
+        {
+          "food": {
+            "id": "1",
+            "foodName": "Adobo",
+            "price": 45,
+            "availableQty": 97
+          },
+          "purchasedQty": 1
+        }
+      ],
+      "total": 0
+    }
+  ]
+}
