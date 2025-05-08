@@ -1,7 +1,23 @@
 {
   "foods": [
-    { "id": "1", "foodName": "Adobo", "price": 45, "availableQty": 100 },
-    { "id": "2", "foodName": "Rice", "price": 10, "availableQty": 9999 }
+    {
+      "id": "1",
+      "foodName": "Adobo",
+      "price": 45,
+      "availableQty": 100
+    },
+    {
+      "id": "2",
+      "foodName": "Rice",
+      "price": 10,
+      "availableQty": 9999
+    },
+    {
+      "id": "c93d",
+      "foodName": "Adobo",
+      "price": 14,
+      "availableQty": 100
+    }
   ],
   "orders": [
     {
