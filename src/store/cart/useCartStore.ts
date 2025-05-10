@@ -18,5 +18,35 @@ export const useCartStore = create(
         state.totalAmount += purchasedQty * food.price;
       });
     },
+    removeItem: (foodId) => {
+      return set((state) => {
+        state.items = state.items.filter((item) => item.food.id !== foodId);
+        state.totalAmount = state.items.reduce(
+          (acc, item) => acc + item.purchasedQty * item.food.price,
+          0
+        );
+      });
+    },
+    increaseQty: (foodId) => {
+      return set((state) => {
+        const item = state.items.find((item) => item.food.id === foodId);
+
+        if (!item) return;
+
+        item.purchasedQty += 1;
+        state.totalAmount += item.food.price;
+      });
+    },
+    decreaseQty: (foodId) => {
+      return set((state) => {
+        const item = state.items.find((item) => item.food.id === foodId);
+
+        if (!item) return;
+
+        item.purchasedQty -= 1;
+        state.totalAmount -= item.food.price;
+      });
+    },
+    resetCart: () => set(initialState),
   }))
 );

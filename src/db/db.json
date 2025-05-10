@@ -4,7 +4,7 @@
       "id": "1",
       "foodName": "Adobo",
       "price": 45,
-      "availableQty": 100
+      "availableQty": 95
     },
     {
       "id": "2",
@@ -22,13 +22,13 @@
       "id": "c958",
       "foodName": "Bicol Express",
       "price": 50,
-      "availableQty": 5
+      "availableQty": 0
     }
   ],
   "orders": [
     {
       "id": "1",
-      "foodItems": [
+      "items": [
         {
           "food": {
             "id": "1",
@@ -48,22 +48,97 @@
           "purchasedQty": 4
         }
       ],
-      "total": 0
+      "totalAmount": 0
     },
     {
-      "id": "2",
-      "foodItems": [
+      "id": "bb29",
+      "items": [
         {
           "food": {
-            "id": "1",
-            "foodName": "Adobo",
-            "price": 45,
-            "availableQty": 97
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 5
+          },
+          "purchasedQty": 5
+        }
+      ],
+      "totalAmount": 250
+    },
+    {
+      "id": "3322",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 4
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "totalAmount": 200
+    },
+    {
+      "id": "bedd",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 5
+          },
+          "purchasedQty": 5
+        }
+      ],
+      "totalAmount": 250
+    },
+    {
+      "id": "5204",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 4
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "totalAmount": 200
+    },
+    {
+      "id": "172d",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 4
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "totalAmount": 200
+    },
+    {
+      "id": "584e",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 1
           },
           "purchasedQty": 1
         }
       ],
-      "total": 0
+      "totalAmount": 50
     }
   ]
 }

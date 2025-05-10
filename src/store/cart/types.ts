@@ -12,4 +12,8 @@ export type CartState = {
 
 export type CartActions = {
   addItem: (item: CartItem) => void;
+  removeItem: (foodId: string) => void;
+  increaseQty: (foodId: string) => void;
+  decreaseQty: (foodId: string) => void;
+  resetCart: () => void;
 };

@@ -1,8 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Pressable, StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native'
-import {
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigation/RootNavigator';
@@ -16,12 +14,20 @@ export const FoodsScreen = () => {
   const { addItem, items } = useCartStore()
   const { data: products } = useGetFoods();
 
+  const filteredFoods = useMemo(() => {
+    return products?.filter((product) => product.availableQty > 0);
+  }, [products]);
+
   const isItemInCart = useCallback((item: Food) => {
     return items.some(cartItem => cartItem.food.id === item.id);
   }, [items]);
 
   const handleNavigateToAddFoodItem = () => {
     navigation.navigate('AddFoodItem')
+  }
+
+  const handleNavigateToCart = () => {
+    navigation.navigate('Cart')
   }
 
   const handleAddToCart = (item: Food) => {
@@ -32,12 +38,12 @@ export const FoodsScreen = () => {
   }
 
   const renderItem = ({ item }: { item: Food }) => {
-    const { foodName, price } = item
+    const { foodName, price, availableQty } = item
 
     return (
       <View style={styles.itemContainer}>
         <View>
-          <Text style={styles.itemName}>{foodName}</Text>
+          <Text style={styles.itemName}>{foodName} ({availableQty})</Text>
           <Text style={styles.itemPrice}>₱ {price.toFixed(2)}</Text>
         </View>
         {!isItemInCart(item)
@@ -57,20 +63,18 @@ export const FoodsScreen = () => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Menu</Text>
-        <View>
-          <Pressable style={styles.cartIcon}>
-            <MaterialCommunityIcons name='cart' size={20} />
-          </Pressable>
+        <Pressable style={styles.cartIcon} onPress={handleNavigateToCart}>
+          <MaterialCommunityIcons name='cart' size={20} />
           {items.length > 0 && <View style={styles.cartBadge}>
             <Text style={styles.cartItemCount}>{items.length}</Text>
           </View>}
-        </View>
+        </Pressable>
       </View>
       <FlatList
-        data={products}
+        data={filteredFoods}
         keyExtractor={item => item.id}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={renderItem}
-        contentContainerStyle={styles.list}
       />
       <Pressable style={styles.addIcon} onPress={handleNavigateToAddFoodItem}>
         <MaterialCommunityIcons name='plus' size={40} />
@@ -92,20 +96,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
+    gap: 16,
   },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  list: {
-    paddingBottom: 16,
-  },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 12,
     padding: 12,
     borderRadius: 6,
     backgroundColor: '#f9f9f9',
@@ -117,7 +118,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: '#666',
   },
-  addedText: { color: 'green' },
+  addedText: {
+    color: 'green'
+  },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
@@ -150,5 +153,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: 'bold'
+  },
+  separator: {
+    height: 16
   }
 })

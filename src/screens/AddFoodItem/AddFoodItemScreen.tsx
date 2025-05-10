@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { useCreateFood, useGetFoods } from '../../hooks/foods/useFoods';
 import { NewFood } from './common/types';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/RootNavigator';
 
 export const AddFoodItemScreen = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const { refetch } = useGetFoods();
   const {
     mutate,
     isPending,
     error,
     data
   } = useCreateFood();
-  const { refetch } = useGetFoods();
 
   const {
     control,
@@ -27,6 +31,10 @@ export const AddFoodItemScreen = () => {
       },
     });
   };
+
+  useEffect(() => {
+    navigation.setOptions({ title: 'Add Food Item' });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
