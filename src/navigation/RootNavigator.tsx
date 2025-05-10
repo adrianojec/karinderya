@@ -13,7 +13,7 @@ const Stack = createStackNavigator<RootStackParamList>()
 export const RootNavigator: React.FC = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Foods" component={FoodsScreen} />
+      <Stack.Screen name="Foods" component={FoodsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AddFoodItem" component={AddFoodItemScreen} />
     </Stack.Navigator>
   )
