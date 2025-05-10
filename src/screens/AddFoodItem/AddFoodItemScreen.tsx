@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { useCreateFood } from '../hooks/foods/useFoods';
+import { useCreateFood } from '../../hooks/foods/useFoods';
 import { NewFood } from './common/types';
 
 export const AddFoodItemScreen = () => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Pressable, StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native'
 import {
   MaterialCommunityIcons,
@@ -6,16 +6,29 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigation/RootNavigator';
-import { useGetFoods } from '../hooks/foods/useFoods';
-import { Food } from '../hooks/foods/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useGetFoods } from '../../hooks/foods/useFoods';
+import { Food } from '../../hooks/foods/types';
+import { useCartStore } from '../../store/cart/useCartStore';
 
 export const FoodsScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const { addItem, items } = useCartStore()
   const { data: products } = useGetFoods();
+
+  const isItemInCart = useCallback((item: Food) => {
+    return items.some(cartItem => cartItem.food.id === item.id);
+  }, [items]);
 
   const handleNavigateToAddFoodItem = () => {
     navigation.navigate('AddFoodItem')
+  }
+
+  const handleAddToCart = (item: Food) => {
+    addItem({
+      food: item,
+      purchasedQty: 1
+    })
   }
 
   const renderItem = ({ item }: { item: Food }) => {
@@ -27,19 +40,32 @@ export const FoodsScreen = () => {
           <Text style={styles.itemName}>{foodName}</Text>
           <Text style={styles.itemPrice}>₱ {price.toFixed(2)}</Text>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => { }} // TODO: Add to cart functionality
-        >
-          <Text style={styles.buttonText}>Add to Cart</Text>
-        </TouchableOpacity>
+        {!isItemInCart(item)
+          ? <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleAddToCart(item)}
+          >
+            <Text style={styles.buttonText}>Add to Cart</Text>
+          </TouchableOpacity>
+          : <Text style={styles.addedText}>Added</Text>
+        }
       </View>
     );
   };
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.header}>Menu</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Menu</Text>
+        <View>
+          <Pressable style={styles.cartIcon}>
+            <MaterialCommunityIcons name='cart' size={20} />
+          </Pressable>
+          {items.length > 0 && <View style={styles.cartBadge}>
+            <Text style={styles.cartItemCount}>{items.length}</Text>
+          </View>}
+        </View>
+      </View>
       <FlatList
         data={products}
         keyExtractor={item => item.id}
@@ -67,14 +93,10 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
-  header: {
+  headerText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
-  },
-  cartCount: {
-    marginBottom: 16,
-    fontSize: 16,
   },
   list: {
     paddingBottom: 16,
@@ -95,6 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: '#666',
   },
+  addedText: { color: 'green' },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 12,
@@ -105,4 +128,27 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  cartIcon: {
+    padding: 4
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    padding: 4,
+    borderRadius: 100,
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  cartItemCount: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: 'bold'
+  }
 })

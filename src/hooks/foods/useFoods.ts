@@ -1,4 +1,4 @@
-import { FOODS_URL } from "../../../utils/constants";
+import { FOODS_URL } from "../../utils/constants";
 import { useGet } from "../useGet";
 import { usePost } from "../usePost";
 import { Food } from "./types";
