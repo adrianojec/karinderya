@@ -139,6 +139,51 @@
         }
       ],
       "totalAmount": 50
+    },
+    {
+      "id": "d587",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 4
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "totalAmount": 200
+    },
+    {
+      "id": "2873",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 2
+          },
+          "purchasedQty": 2
+        }
+      ],
+      "totalAmount": 100
+    },
+    {
+      "id": "a42a",
+      "items": [
+        {
+          "food": {
+            "id": "c958",
+            "foodName": "Bicol Express",
+            "price": 50,
+            "availableQty": 4
+          },
+          "purchasedQty": 4
+        }
+      ],
+      "totalAmount": 200
     }
   ]
 }

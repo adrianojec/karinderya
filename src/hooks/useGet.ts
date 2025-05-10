@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useGet = <TResponse>(url: string) => {
   return useQuery<TResponse, Error>({
-    queryKey: [`GET:${url}`],
+    queryKey: [url],
     queryFn: async () => {
       const res = await fetch(url);
 

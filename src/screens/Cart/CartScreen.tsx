@@ -5,11 +5,8 @@ import { CartItem } from '../../store/cart/types'
 import { useCreateOrder } from '../../hooks/orders/useOrders';
 import { CartTile } from './components/CartTile';
 import { useUpdateFoods } from '../../hooks/foods/useFoods';
-import { useQueryClient } from '@tanstack/react-query';
-import { FOODS_URL } from '../../utils/constants';
 
 export const CartScreen = () => {
-  const queryClient = useQueryClient();
   const {
     items,
     totalAmount,
@@ -49,10 +46,7 @@ export const CartScreen = () => {
       onSuccess: async () => {
         try {
           await onUpdateFoods(items);
-          await queryClient.invalidateQueries({
-            queryKey: [`GET:${FOODS_URL}`],
-            exact: true,
-          });
+
           resetCart();
 
           Alert.alert("Success", "Order placed successfully");

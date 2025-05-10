@@ -1,15 +1,18 @@
 import React, { useCallback, useMemo } from 'react'
 import { Pressable, StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigation/RootNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGetFoods } from '../../hooks/foods/useFoods';
 import { Food } from '../../hooks/foods/types';
 import { useCartStore } from '../../store/cart/useCartStore';
+import { useQueryClient } from '@tanstack/react-query';
+import { FOODS_URL } from '../../utils/constants';
 
 export const FoodsScreen = () => {
+  const queryClient = useQueryClient();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { addItem, items } = useCartStore()
   const { data: products } = useGetFoods();
@@ -58,6 +61,12 @@ export const FoodsScreen = () => {
       </View>
     );
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      queryClient.invalidateQueries({ queryKey: [FOODS_URL], exact: true });
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.screen}>
