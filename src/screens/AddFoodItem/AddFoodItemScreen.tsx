@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { useCreateFood } from '../../hooks/foods/useFoods';
+import { useCreateFood, useGetFoods } from '../../hooks/foods/useFoods';
 import { NewFood } from './common/types';
 
 export const AddFoodItemScreen = () => {
@@ -11,6 +11,7 @@ export const AddFoodItemScreen = () => {
     error,
     data
   } = useCreateFood();
+  const { refetch } = useGetFoods();
 
   const {
     control,
@@ -20,7 +21,10 @@ export const AddFoodItemScreen = () => {
 
   const onSubmit = (formData: NewFood) => {
     mutate(formData, {
-      onSuccess: () => reset(),
+      onSuccess: () => {
+        reset();
+        refetch();
+      },
     });
   };
 

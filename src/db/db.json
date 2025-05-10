@@ -11,6 +11,18 @@
       "foodName": "Rice",
       "price": 10,
       "availableQty": 9999
+    },
+    {
+      "id": "4727",
+      "foodName": "Tinola",
+      "price": 15,
+      "availableQty": 10
+    },
+    {
+      "id": "c958",
+      "foodName": "Bicol Express",
+      "price": 50,
+      "availableQty": 5
     }
   ],
   "orders": [
