@@ -48,3 +48,10 @@ npm run android
 ```bash
 npm run ios
 ```
+
+## Running the JSON Server
+- Start REST API server
+
+```bash
+npx json-server src/db/db.json
+```
